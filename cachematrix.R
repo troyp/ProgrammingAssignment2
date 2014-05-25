@@ -33,9 +33,20 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 # ------------------------------------------------------------------------
-# Assignment Note:
+
+#    Note regarding Assignment: Additional arguments (...)
+#   -------------------------------------------------------
 # Since the cacheSolve() signature includes additional arguments (...),
-# I assume they should be passed on to the solve() function.
+# I assume they should be passed on to the solve() function to allow 
+# for general linear equation solving using the cachematrix. 
+
+# Note that the cached inverse is not used in equation solving. This 
+# could be done by simply left-multiplying the RHS by x$getinverse().
+# However this is not implemented in cacheSolve(), since it is beyond
+# the scope of the assignment and would clutter up the code.
+
+# Thus, cacheSolve(x) performs a caching inverse operation, while
+# cacheSolve(x, b, ...) solves for y in x %*% y == b without caching.
 
 # ============
 #  cacheSolve
@@ -86,7 +97,7 @@ test <- function() {
         print( m$get() %*% m$getinverse() )    # identity matrix
         # solve equation c * b = 2I_3
         message( "calling cacheSolve with additional arguments - " )
-        message( "solving matrix equation X B = 2I:" )
+        message( "solving matrix equation C X = 2I:" )
         print( cacheSolve(c, matrix(c(2,0,0,0,2,0,0,0,2),3,3)) )
         # return NULL
         invisible(NULL)
