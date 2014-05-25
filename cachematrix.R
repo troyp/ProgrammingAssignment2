@@ -88,4 +88,6 @@ test <- function() {
         message( "calling cacheSolve with additional arguments - " )
         message( "solving matrix equation X B = 2I:" )
         print( cacheSolve(c, matrix(c(2,0,0,0,2,0,0,0,2),3,3)) )
+        # return NULL
+        invisible(NULL)
 }
